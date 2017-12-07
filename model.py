@@ -4,8 +4,7 @@ Author = Georgina Weaver
 Core Programming for GIS - Andy Evans, University of Leeds
 
 Creating an ABM to model agents within an environment
-These agents move around and interact with their surroundings
-The agents can communicate with one another, and understand the environment
+These agents move around and interact with their surroundings, communicate with one another, and understand the environment
 
 """
 
