@@ -1,4 +1,13 @@
-# Defining the agent class
+"""
+Author = Georgina Weaver
+
+Core Programming for GIS - Andy Evans, University of Leeds
+
+Defining the agent class to be used within the main model
+Developing the behaviour of an agent so it moves and eats within the environment
+
+"""
+
 
 
 # Import random to be able to create agents
@@ -19,11 +28,11 @@ class Agent():
         self.store = 0
         
 # Now have x and y coordinates in agent, initialised to random location
-# Clearly structured to see what the components are 
+# Clearly structured to see what the components are wihtin the agent class
 
 
 
-# Moving an agent at random
+# Moving an agent at random when the model is run 
 
     def move(self):
         if random.random() < 0.5:
@@ -39,6 +48,7 @@ class Agent():
             
             
 # Telling the agents what to eat within the environment
+
     def eat(self):
         if self.environment[self.y][self.x] > 10:
             self.environment[self.y][self.x] -= 10
@@ -48,6 +58,7 @@ class Agent():
         
 # Work out the distance to each of the agents
 # If they fall within neighbourhood distance, set it ands its neighbours equal to average
+
     def share_with_neighbours(self, neighbourhood):
         for agent in self.agents:
             dist = self.distance_between(agent)
@@ -60,7 +71,7 @@ class Agent():
             
 
 
-# Pythagoras distance between the two agents           
+# Pythagoras distance between the two agents  
+         
     def distance_between(self, agent):
         return(((self.x - agent.x)**2) + ((self.y - agent.y)**2))**0.5
-        
