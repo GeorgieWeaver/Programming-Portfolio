@@ -1,3 +1,17 @@
+"""
+Author = Georgina Weaver
+
+Core Programming for GIS - Andy Evans, University of Leeds
+
+Creating an ABM to model agents within an environment
+These agents move around and interact with their surroundings
+The agents can communicate with one another, and understand the environment
+
+"""
+
+
+# Importing the modules needed to create the model
+
 import matplotlib
 matplotlib.use ('TkAgg')
 import matplotlib.backends.backend_tkagg
@@ -13,6 +27,7 @@ import bs4
 
 
 # Initalising the model using x and y data
+
 r = requests.get('http://www.geog.leeds.ac.uk/courses/computing/practicals/python/agent-framework/part9/data.html')
 content = r.text
 soup = bs4.BeautifulSoup(content, 'html.parser')
@@ -24,32 +39,37 @@ print(td_xs)
 
 
 # Calculate the distance between the agents using pythagoras
+
 def distance_between(agent0, agent1):
     return (((agent0.x - agent1.x)**2) + ((agent0.y - agent1.y)**2))**0.5
 
 
 
 # Creating the environment for the agents to move around in 
-# Creating the agent list
+# Creating the agent list that will be incoporated into the environment
+
 environment = []
 agents = []
 
 
 
-# Defining the area for animation
+# Defining the area for animation, that will become the environment
+
 fig = matplotlib.pyplot.figure(figsize=(7,7))
 ax = fig.add_axes([0,0,1,1])
 
 
 
-# Stating how many agents and iterations will be in the ABM
+# Stating how many agents and iterations will be in the ABM when the model is run 
+
 num_of_agents = 10
 num_of_iterations = 100
 neighbourhood = 20
 
 
 
-# Read the csv, and add the data
+# Read the csv file into the code, and run the data 
+
 f=open('in.txt', newline='')
 reader=csv.reader (f, quoting = csv.QUOTE_NONNUMERIC)
 
@@ -62,14 +82,16 @@ f.close()
 
 
 
-# Make the agents, using the agent class
+# Make the agents, using the agent class that has been created
 # Passing the environment list into the constructor of the agents
+
 for i in range(num_of_agents):
     agents.append(agentframework.Agent(environment, agents, neighbourhood))
     
     
 
-# Creating the animation function
+# Creating the animation function so that the movement of the agents are shown
+
 carry_on = True
 matplotlib.pyplot.xlim(0, 99)
 matplotlib.pyplot.ylim(0, 99)
@@ -104,7 +126,8 @@ def gen_function(b = [0]):
 
 
 # Displaying the animation within the environment
-# Meaning that the agents move around within the environment
+# Showing how the agents moved around the environment when the model was run
+
 animation = matplotlib.animation.FuncAnimation(fig, update, interval=1, repeat=False, frames=num_of_iterations)
 #matplotlib.pyplot.imshow(environment)
 matplotlib.pyplot.show()
@@ -112,12 +135,14 @@ matplotlib.pyplot.show()
 
 
 # Making a Graphical User Interface that displays the model
+
 def run():
     animation = matplotlib.animation.FuncAnimation(fig, update, frames=gen_function, repeat=False)
     canvas.show()
 
 
 # Build the main window, so that the environment is displayed 
+
 root = tkinter.Tk()
 root.wm_title("Model")
 canvas = matplotlib.backends.backend_tkagg.FigureCanvasTkagg(fig, master=root)
@@ -126,6 +151,7 @@ canvas._tkcanvas.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
     
     
 # Allow the user interface to wait for events that are inputted
+
 tkinter.mainloop()
 
 
@@ -135,6 +161,17 @@ tkinter.mainloop()
 
 
 """
+Some code that was created that was then removed from the final code
+
+
+root = tkinter.Tk()
+root.wm_title("Model")
+canvas = matplotlib.backends.backend_tkagg.FigureCanvasTkAgg(fig, master=root)
+canvas._tkcanvas.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
+    
+
+# Sets the user interface to wait for events within the model
+tkinter.mainloop()
 
 
 # Calculating the distance between the agents        
@@ -154,7 +191,6 @@ print(distance)
            agents[i][1] = (agents[i][1] - 1) % 100
 
 
-
 # Make a single agent
 a = agentframework.Agent()
 print (a.y, a.x)
@@ -162,4 +198,3 @@ a.move()
 print (a.y, a.x)
 
 """
-
